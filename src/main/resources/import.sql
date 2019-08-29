@@ -1,0 +1,1 @@
+INSERT INTO board (message) VALUES ('Good Morning!');

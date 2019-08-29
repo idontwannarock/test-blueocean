@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  docker-mysql-test-blueocean:
+    container_name: docker-mysql-test-blueocean
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test-blueocean
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    volumes:
+      - /data/mysql
+#    ports:
+#      - 3306:3306
+  docker-app-test-blueocean:
+    container_name: docker-app-test-blueocean
+    image: docker-app-test-blueocean
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_HOST=docker-mysql-test-blueocean
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=test-blueocean
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=password
+    depends_on:
+      - docker-mysql-test-blueocean
+    ports:
+      - 9100:9100
+    volumes:
+      - /data/spring-boot-app

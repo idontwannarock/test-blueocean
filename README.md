@@ -1,0 +1,1 @@
+This is a test project to test Jenkins's plugin, Blue Ocean pipeline.
